@@ -1,0 +1,6 @@
+Input:
+strace -e trace=write ./test
+
+Output:
+write(1, "Hello World.\n", 13)          = 13
++++ exited with 0 +++
