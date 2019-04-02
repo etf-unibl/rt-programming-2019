@@ -1,0 +1,67 @@
+#
+# Show code
+17	 * along with this program; if not, write to the Free Software
+18	 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+19	 * MA 02110-1301, USA.
+20	 * 
+21	 * Pronaci gresku pomocu gdb
+22	 * 
+23	 * 
+24	 */
+25	 
+26	#include <stdio.h> 
+27	#include <stdlib.h> 
+28	#include <string.h> 
+29	 
+30	int main(int argc, char* argv[]){  
+31		int* ptr = malloc(4);  
+32		free(ptr);  
+33		scanf("%d",*ptr);   
+34		return EXIT_SUCCESS; 
+35	}
+Line number 36 out of range; sigseg2.c has 35 lines.
+# Breakpoint na main
+Breakpoint 1 at 0x4005e5: file sigseg2.c, line 31.
+# pokrece se program
+Starting program: /home/damjan/Desktop/PURV/PrviLab/zadaca/sigseg2 
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffdda8) at sigseg2.c:31
+31		int* ptr = malloc(4);  
+# program zaustavljen na main
+# izvrsavanjem sledece linije, program ce da zatrazi 4 bajta od kernela
+# i dobice pokazivac na dobijenu memoriju
+__GI___libc_malloc (bytes=4) at malloc.c:2902
+2902	malloc.c: No such file or directory.
+2907	in malloc.c
+2908	in malloc.c
+2909	in malloc.c
+2929	in malloc.c
+2909	in malloc.c
+malloc_hook_ini (sz=4, caller=0x4005ef <main+25>) at hooks.c:29
+29	hooks.c: No such file or directory.
+31	in hooks.c
+30	in hooks.c
+31	in hooks.c
+30	in hooks.c
+31	in hooks.c
+32	in hooks.c
+33	in hooks.c
+main (argc=1, argv=0x7fffffffdda8) at sigseg2.c:32
+32		free(ptr);  
+33		scanf("%d",*ptr);   
+# program je dobio 4 bajta
+# nakon toga je izvrsena naredba free(ptr) i sada lokacija na koju pokazuje pokazivac ptr vise nije alocirana
+# sada treba da se izvrsi scanf("%d",*ptr);
+# posto je ptr oslobodjen, postoji mogucnost da je data memorijska lokacija vec dodjeljena za nesto drugo
+# dereferenciranjem ptr pristupa se vrijednosti prvog bajta
+# printuje se *ptr
+$1 = 0
+# *ptr je 0
+# sada ce scanf da na tu adresu pokusa da upise broj koji unesemo
+# idemo sa daljim izvrsavanjem
+Program received signal SIGSEGV, Segmentation fault.
+0x00007ffff7a6cde5 in _IO_vfscanf_internal (s=<optimized out>, format=<optimized out>, 
+    argptr=argptr@entry=0x7fffffffdbc8, errp=errp@entry=0x0) at vfscanf.c:1902
+1902	vfscanf.c: No such file or directory.
+# doslo je do seg. faulta jer je pokusan pristup adresi 0
+# GRESKA JE OTKRIVENA!
