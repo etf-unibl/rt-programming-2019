@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <elf.h>
 
@@ -42,13 +43,17 @@
 //} Elf64_Ehdr;
 
 
-int main(char *args[],int argv){
+int main(int argv,char *args[]){
      
     //---------------------------------------
+    
+    if(argv<2) return -1;
+    if(strcmp(args[1],"--file-header")!=0) return -1;
+    
     printf("\n\n--------------------\n\n");
     
     FILE *file;
-    if((file=fopen("hello_world.out","rb"))==NULL){
+    if((file=fopen(args[2],"rb"))==NULL){
      printf("Error occured :)\n");
      return -1;
     }
@@ -67,7 +72,7 @@ int main(char *args[],int argv){
         printf("\n");
         
         printf("    Class:  ");
-        printf("%c%c%c",elf->e_ident[1],elf->e_ident[2],elf->e_ident[3]); 
+        printf("%c%c%c",elf->e_ident[1],elf->e_ident[2],elf->e_ident[3]);
         if(elf->e_ident[EI_CLASS]==2)
             printf("64\n");
         else
