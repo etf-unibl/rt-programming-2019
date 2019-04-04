@@ -47,12 +47,28 @@ int main() {
         printf("Welcome to per thread arena example::%d\n",getpid());
         printf("Before malloc in main thread\n");
         getchar();
-        addr = (char*) malloc(1000);
+        addr = (char*) malloc(1024);
         printf("After malloc and before free in main thread\n");
         getchar();
         free(addr);
         printf("After free in main thread\n");
         getchar();
+
+      
+        int CHUNK_NUM = 200;
+        char* addr_small[CHUNK_NUM];
+        for (int i = 0; i < CHUNK_NUM; i++){
+                addr_small[i] = (char*) malloc(1024);
+        }
+        printf("After malloc of 200 x 1KB and before free in main thread\n");
+        getchar();
+        
+        for (int i = 0; i < CHUNK_NUM; i++){
+                free(addr_small[i]);
+        }
+        printf("After freing of 200 x 1KB and before free in main thread\n");
+        getchar();
+        
         ret = pthread_create(&t1, NULL, threadFunc, NULL);
         if(ret)
         {
