@@ -1,0 +1,65 @@
+KOD:
+
+1	#include <stdio.h> 
+2	#include <stdlib.h> 
+3	#include <string.h> 
+4	 
+5	int main(int argc, char* argv[]) {
+6	   char* name = malloc(strlen(argv[1])) ;
+7	   name = strcpy(name,argv[1]);
+8	   printf("%s \n", name);
+9	   return EXIT_SUCCESS;
+10	}
+
+POKRENEMO SA run:
+
+Starting program: /home/smiljanic997/Desktop/RTP/exe 
+
+Program received signal SIGSEGV, Segmentation fault.
+strlen () at ../sysdeps/x86_64/strlen.S:106
+106	../sysdeps/x86_64/strlen.S: No such file or directory.
+
+REZULTAT backtrace:
+
+#0  strlen () at ../sysdeps/x86_64/strlen.S:106
+#1  0x0000000000400628 in main (argc=1, argv=0x7fffffffdf38)
+    at homework_sigseg1.c:6
+
+VIDIMO DA SE SEGMENTATION FAULT DESIO NA 6. LINIJI.
+POSTAVIMO BREAKPOINT SA break main:
+
+Breakpoint 1 at 0x400615: file homework_sigseg1.c, line 6.
+
+POKRENEMO SA run:
+Starting program: /home/smiljanic997/Desktop/RTP/exe 
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffdf38) at homework_sigseg1.c:6
+6	   char* name = malloc(strlen(argv[1])) ;
+
+ISPISEMO STANJE ARGV[1] SA print argv[1]:
+
+$1 = 0x0
+
+VIDIMO DA JE ARGV[1] NULA, STO JE EKVIVALENT NULL POINTERU. DRUGI NACIN NA
+KOJI ZNAMO DA JE ARGV[1] NULL JE TAJ STO JE PO STANDARDU UVIJEK argv[argc] NULL
+POINTER, A ARGC JE U OVOM SLUCAJU 1.
+DAKLE, FUNKCIJA strlen POKUSAVA DA DEREFERENCIRA NULL POINTER, PA ZATO NASTAJE
+SEGMENTATION FAULT. OVAJ PROBLEM JE RIJESEN STANDARDOM C11, KADA JE UVEDENA
+FUNKCIJA strlen_s, KOJA BI U OVOM SLUCAJU VRATILA NULU I NE BI SE DESIO SEGFAULT.
+EKVIVALENT U JAVI JE NullPointerException.
+
+PORENIMO SADA PROGRAM SA ARGUMENTOM: run "test"
+
+Starting program: /home/smiljanic997/Desktop/RTP/exe "test"
+
+Breakpoint 1, main (argc=2, argv=0x7fffffffdf28) at homework_sigseg1.c:6
+6	   char* name = malloc(strlen(argv[1])) ;
+
+ISPISEMO SADA ARGV[1] SA print argv[1]:
+
+$2 = 0x7fffffffe2c2 "test"
+
+Continuing.
+[Inferior 1 (process 4973) exited normally]
+
+SADA JE PROGRAM ISPISAO test I NIJE SE DESIO SEGMENTATION FAULT.
