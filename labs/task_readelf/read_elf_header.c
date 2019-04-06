@@ -53,7 +53,7 @@ uint8_t main(uint8_t argc, char* argv[])
  * Parameters:
  *      file_name:  Path to the ELF file
  * Returns:   SUCCESS   (0)  if reading is successful, or
- *            ERR_CODE  (1)  if reading is not successful
+ *            ERR_CODE  (-1)  if reading is not successful
  *
 */
 uint8_t read_elf32(const char* file_name)
@@ -311,7 +311,7 @@ uint8_t read_elf32(const char* file_name)
  * Parameters:
  *      file_name:  Path to the ELF file
  * Returns:   SUCCESS   (0)  if reading is successful, or
- *            ERR_CODE  (1)  if reading is not successful
+ *            ERR_CODE  (-1)  if reading is not successful
  *
 */
 uint8_t read_elf64(const char* file_name)
