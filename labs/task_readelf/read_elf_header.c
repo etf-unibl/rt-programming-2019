@@ -33,7 +33,7 @@ uint8_t main(uint8_t argc, char* argv[])
     if(1 == argc)
     {
 	printf("Specify the ELF file as the argument.\n");
-	return -1;
+	return ERR_CODE;
     }
 
     uint8_t architecture = check_architecture(argv[1]);
@@ -44,7 +44,7 @@ uint8_t main(uint8_t argc, char* argv[])
       read_elf64(argv[1]);
     else
 	return ERR_CODE;
-    return 0;
+    return SUCCESS;
 }
 
 
