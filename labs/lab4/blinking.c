@@ -1,4 +1,4 @@
-#include <wiringPi.h>
+#include "wiringPi/wiringPi/wiringPi.h"
 
 int main (void)
 {
