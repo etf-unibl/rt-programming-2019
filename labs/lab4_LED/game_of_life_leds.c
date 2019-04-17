@@ -73,7 +73,7 @@ void main(void)
 }
 
 /*
- * This function turns LED on or of, based
+ * This function turns LED on or off, based
  * on the cell state
  * Parameters: state - char: cell state
  */
