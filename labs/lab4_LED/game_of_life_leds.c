@@ -25,7 +25,7 @@ static volatile char done;
 // Function declarations:
 char is_alive(char**);
 void print_matrix(char**);
-void* leds(void* pParam);
+void* leds(void*);
 void* check_quit(void*);
 
 
