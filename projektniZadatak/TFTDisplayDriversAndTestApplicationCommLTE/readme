@@ -1,0 +1,18 @@
+U ovom folderu se nalaze tri podfoldera (subfoldera)
+I to pod nazivima:
+
+-DVGAdriver
+-mtl2_touchscreen_driver
+-testApp
+
+DVGAdriver je linux drajver namjenjen za RaspberryPI i to Raspbian patchiran za rad u realnom vremenu. Pisao ga je Damjan Prerad.
+mtl2_touchscreen_driver linux drajver namjenjen za RaspberryPI i to Raspbian patchiran za rad u realnom vremenu. Pisao ga je Slaven Smiljanic.
+
+testApp je kod koji sadrzi testnu aplikaciju. Ona ucitava sliku, prikazuje dva kruga na ektranu koji u vremenu mijenjaju boju. Polozaj jednog kruga se kontrolise
+tasterima WSAD a drugog dodirom na displej, cime se prikazuju funkcionalnosti oba drajvera.
+
+Oba autora su se trudila da njihovi drajveri budu sto jasniji.
+
+U folderu DVGAdriver se nalazi insmodScript.sh kojom se ubacuju drugi moduli potrebni za ispravan rad navedenog drajvera. Ona se poziva iz konzole naredbom sh insmodScript.sh
+Ova skripta ce se pozvati automatski, ako se izvrsi skripta setup.sh koja ce da insmoduje oba drajvera, kompajluje testnuAplikaciju i pokrene je.
+Ovim je dio procesa automatizovan i olakasana je upotreba drajvera.
